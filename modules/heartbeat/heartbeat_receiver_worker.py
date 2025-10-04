@@ -60,6 +60,7 @@ def heartbeat_receiver_worker(
 
     # Main loop: do work.
     while not controller.is_exit_requested():
+        controller.check_pause()
         # Run the receiver to check for heartbeats
         status = receiver.run()
 

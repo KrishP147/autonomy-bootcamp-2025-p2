@@ -139,6 +139,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
             if abs(angle_diff) > self.ANGLE_TOLERANCE:
                 # Convert to degrees for command
                 angle_diff_deg = math.degrees(angle_diff)
+                direction = 1 if angle_diff_deg >= 0 else -1  # 1=clockwise, -1=counter-clockwise
 
                 # Send yaw change command (relative)
                 self.connection.mav.command_long_send(
@@ -148,7 +149,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
                     0,  # confirmation
                     angle_diff_deg,  # param1 (target angle in degrees)
                     5.0,  # param2 (angular speed in deg/s) - CHANGE FROM 0
-                    1,  # param3 (direction: 1=clockwise, -1=counter-clockwise, not used for relative)
+                    direction,  # param3 (direction: 1=clockwise, -1=counter-clockwise, not used for relative)
                     1,  # param4 (relative=1, absolute=0)
                     0,  # param5
                     0,  # param6

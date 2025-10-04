@@ -61,6 +61,7 @@ def telemetry_worker(
 
     # Main loop: do work.
     while not controller.is_exit_requested():
+        controller.check_pause()
         result, telemetry_data = telem.run()
 
         if result:

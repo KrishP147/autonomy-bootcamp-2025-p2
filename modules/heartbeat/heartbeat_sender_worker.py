@@ -58,6 +58,7 @@ def heartbeat_sender_worker(
 
     # Main loop: do work.
     while not controller.is_exit_requested():
+        controller.check_pause()
         sender.run()
         local_logger.info("Heartbeat sent", True)
         time.sleep(1)  # Send once per second

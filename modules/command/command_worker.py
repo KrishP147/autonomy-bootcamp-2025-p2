@@ -65,6 +65,7 @@ def command_worker(
 
     # Main loop: do work.
     while not controller.is_exit_requested():
+        controller.check_pause()
         if not telemetry_queue.queue.empty():
             telemetry_data = telemetry_queue.queue.get()
             local_logger.info(f"Received telemetry: {telemetry_data}", True)

@@ -164,6 +164,10 @@ def main() -> int:
             try:
                 heartbeat_status = heartbeat_queue.queue.get_nowait()
                 main_logger.info(f"Heartbeat status: {heartbeat_status}")
+
+                if heartbeat_status == "Disconnected":
+                    main_logger.warning("Drone disconnected, exiting")
+                break
             except queue.Empty:
                 pass
 

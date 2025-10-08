@@ -71,7 +71,7 @@ def stop(
 def read_queue(
     report_queue: queue_proxy_wrapper.QueueProxyWrapper,
     controller: worker_controller.WorkerController,
-    main_logger: logger.Logger,   # pylint: disable=unused-argument
+    main_logger: logger.Logger,  # pylint: disable=unused-argument
 ) -> None:
     """
     Read and print the output queue.

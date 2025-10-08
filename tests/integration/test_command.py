@@ -71,15 +71,15 @@ def stop(
 def read_queue(
     report_queue: queue_proxy_wrapper.QueueProxyWrapper,
     controller: worker_controller.WorkerController,
-    main_logger: logger.Logger,
+    main_logger: logger.Logger,   # pylint: disable=unused-argument
 ) -> None:
     """
     Read and print the output queue.
     """
     while not controller.is_exit_requested():
         if not report_queue.queue.empty():
-            action = report_queue.queue.get()
-            main_logger.info(f"Command action: {action}", True)
+            report_queue.queue.get()
+            # main_logger.info(f"Command action: {action}", True)
         time.sleep(0.1)
 
 
@@ -239,7 +239,7 @@ def main() -> int:
 
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(
-        TELEMETRY_PERIOD * len(path), stop, (controller, telemetry_queue, report_queue)
+        TELEMETRY_PERIOD * len(path), stop, (telemetry_queue, report_queue, controller)
     ).start()
 
     # Put items into input queue

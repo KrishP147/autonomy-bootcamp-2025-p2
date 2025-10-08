@@ -167,7 +167,7 @@ def main() -> int:
 
                 if heartbeat_status == "Disconnected":
                     main_logger.warning("Drone disconnected, exiting")
-                break
+                    break
             except queue.Empty:
                 pass
 

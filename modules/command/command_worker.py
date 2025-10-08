@@ -68,14 +68,17 @@ def command_worker(
         controller.check_pause()
         if not telemetry_queue.queue.empty():
             telemetry_data = telemetry_queue.queue.get()
-            local_logger.info(f"Received telemetry: {telemetry_data}", True)
+            # local_logger.info(f"Received telemetry: {telemetry_data}", True)
+
+            if telemetry_data is None:
+                continue
 
             result, action = cmd.run(telemetry_data)
 
             if result and action is not None:
                 # Send action string to report queue
                 report_queue.queue.put(action)
-                local_logger.info(f"Action taken: {action}", True)
+                # local_logger.info(f"Action taken: {action}", True)
         else:
             time.sleep(0.01)  # Small sleep when queue is empty
 

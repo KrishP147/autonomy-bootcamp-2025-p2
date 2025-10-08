@@ -117,7 +117,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
             )
 
             action = f"CHANGE ALTITUDE: {delta_z:.2f}"
-            self.local_logger.info(action, True)
+            # self.local_logger.info(action, True)
             return True, action
 
         # Check yaw (orientation)
@@ -139,7 +139,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
             if abs(angle_diff) > self.ANGLE_TOLERANCE:
                 # Convert to degrees for command
                 angle_diff_deg = math.degrees(angle_diff)
-                direction = 1 if angle_diff_deg >= 0 else -1  # 1=clockwise, -1=counter-clockwise
+                direction = -1 if angle_diff_deg >= 0 else 1  # 1=clockwise, -1=counter-clockwise
 
                 # Send yaw change command (relative)
                 self.connection.mav.command_long_send(
@@ -157,7 +157,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
                 )
 
                 action = f"CHANGE YAW: {angle_diff_deg:.2f}"
-                self.local_logger.info(action, True)
+                # self.local_logger.info(action, True)
                 return True, action
 
         # No action needed
